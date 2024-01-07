@@ -38,12 +38,12 @@ function BankForm(props) {
         return false;
       }
     }
-    if (label === "withdraw" || label === "deposit") {
+    if (label === "Withdraw" || label === "Deposit") {
       if (field < 0) {
         setError("Please try a different amount");
         return false;
       }
-      if (label === "withdraw" && props.balance < field) {
+      if (label === "Withdraw" && props.balance < field) {
         setError("You don't have enough balance for this transaction");
         return false;
       }
@@ -76,8 +76,7 @@ function BankForm(props) {
   }
 
   function handleDepositWithdraw() {
-    if (!validate(amount,"withdraw")) return;
-    if (!validate(amount,"deposit")) return;
+    if (!validate(amount,props.label)) return;
 
     props.handle({amount, header: props.label});
   }
