@@ -12,6 +12,10 @@ function Card(props) {
   function classes() {
     const bg = props.bgcolor ? " bg-" + props.bgcolor : " ";
     const txt = props.txtcolor ? "text-" + props.txtcolor : " text-white";
+    if (props.header === "Withdraw") {
+      const margin = " withdraw-container"
+      return "card mb-3 card" + bg + txt + margin;
+    }
     return "card mb-3 card" + bg + txt;
   }
   function handleClick() {

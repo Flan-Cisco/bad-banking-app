@@ -1,9 +1,9 @@
+
 import React from "react";
 import Card from "../componentes/card";
 import { useUser } from "../componentes/userLogin";
 
 function Home() {
-  console.log('Home component rendered');
   const { user } = useUser();
   return (
     <>

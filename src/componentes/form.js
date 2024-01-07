@@ -7,7 +7,6 @@ function BankForm(props) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [balance, setBalance] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
 
   function setError(text, time = 3000) {
@@ -44,6 +43,10 @@ function BankForm(props) {
         setError("Please try a different amount");
         return false;
       }
+      if (label === "withdraw" && props.balance < field) {
+        setError("You don't have enough balance for this transaction");
+        return false;
+      }
     }
     return true;
   }
@@ -62,7 +65,7 @@ function BankForm(props) {
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
     setShow(false);
-    props.handle({name,email,password,balance: 100});
+    props.handle({ name, email, password, balance: 100 });
   }
   function handleLogin() {
     if (!validate(email, "email")) return;
@@ -73,12 +76,27 @@ function BankForm(props) {
   }
 
   function handleDepositWithdraw() {
-    if (!validate("withdraw")) return;
-    if (!validate("deposit")) return;
-    //Add logic to edit user data
-    setShow(false);
-    props.handle();
+    if (!validate(amount,"withdraw")) return;
+    if (!validate(amount,"deposit")) return;
+
+    props.handle({amount, header: props.label});
   }
+
+  const handleKeyDown = (event) => {
+    if (
+      [46, 8, 9, 27, 13, 110, 40].includes(event.keyCode) ||
+      (event.keyCode === 65 && event.ctrlKey === true) ||
+      (event.keyCode >= 35 && event.keyCode <= 39)
+    ) {
+      return;
+    }
+    if (
+      (event.shiftKey || event.keyCode < 48 || event.keyCode > 57) &&
+      (event.keyCode < 96 || event.keyCode > 105)
+    ) {
+      event.preventDefault();
+    }
+  };
 
   function clearForm() {
     setName("");
@@ -114,7 +132,7 @@ function BankForm(props) {
             ) : (
               <></>
             )}
-            {props.label !== "Withdraw" || props.label !== "Deposit" ? (
+            {props.label !== "Withdraw" && props.label !== "Deposit" ? (
               <>
                 Email address
                 <br />
@@ -142,10 +160,19 @@ function BankForm(props) {
             ) : (
               <>
                 Balance
-                <p>{balance}</p>
+                <p>${props.balance}</p>
                 <br />
                 {props.label} Amount
-                <input type="number" min={0} className="form-control" id="amount" placeholder = {props.label + " Amount"} value={amount} onChange={(e) => setAmount(e.currentTarget.value)} /> 
+                <input
+                  onKeyDown={handleKeyDown}
+                  type="number"
+                  min={0}
+                  className="form-control"
+                  id={"amount" + props.label}
+                  placeholder={props.label + " Amount"}
+                  value={amount}
+                  onChange={(e) => setAmount(e.currentTarget.value)}
+                />
               </>
             )}
             <button

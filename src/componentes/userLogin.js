@@ -7,6 +7,7 @@ const UserContext = createContext(null);
 
 export const UserProvider = ({children}) => {
     const [user, setUser] = useState({
+        id: 1,
         name: "John",
         email: "john@test.com",
         password: "!a123123",
@@ -26,17 +27,29 @@ export const UserProvider = ({children}) => {
 
     const createAccount = (userData) => {
         let tmpUsers = users;
+        userData.id = tmpUsers.length +1;
         tmpUsers.push(userData);
         setUsers(tmpUsers);
         if (!user) {
             login(userData);
         }
     }
+    const updateUser = (userData) => {
+        setUser(userData);
+        let tmpUsers = users.map((user) => {
+            if (user.id === userData.id) {
+                return {...user, balance: userData.balance};
+            }
+            return user;
+        })
+        setUsers(tmpUsers);
+
+    }
 
     
 
     return (
-        <UserContext.Provider value={{user, users, login, logout, createAccount}}>
+        <UserContext.Provider value={{user, users, login, logout, createAccount, updateUser}}>
 
             {children}
 
