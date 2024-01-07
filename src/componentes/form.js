@@ -1,4 +1,3 @@
-import UserContext from "../componentes/userContext";
 import React from "react";
 import Card from "../componentes/card";
 
@@ -10,7 +9,6 @@ function BankForm(props) {
   const [password, setPassword] = React.useState("");
   const [balance, setBalance] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
-  const userContext = React.useContext(UserContext);
 
   function setError(text, time = 3000) {
     setStatus(text);
@@ -63,9 +61,8 @@ function BankForm(props) {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    userContext.users.push({ name, email, password, balance: 100 });
     setShow(false);
-    props.handle();
+    props.handle({name,email,password,balance: 100});
   }
   function handleLogin() {
     if (!validate(email, "email")) return;

@@ -1,12 +1,15 @@
-import UserContext from "../componentes/userContext";
+
 import React from "react";
 import BankForm from "../componentes/form";
+import { useUser } from "../componentes/userLogin";
 
 function CreateAccount() {
-  const userContext = React.useContext(UserContext);
+
+  const {createAccount} = useUser();
 
   function handle(data) {
-    userContext.user.push({
+    console.log(data)
+    createAccount({
         name: data.name,
         email: data.email,
         password: data.password,

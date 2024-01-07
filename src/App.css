@@ -19,16 +19,29 @@
 .button {
   outline: 0 !important;
   border: 0 !important;
-  width: 40px;
+  width: 60px;
   height: 40px;
   border-radius: 50%;
   background-color: transparent;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
   color: #fff;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "imagen" "texto";
+  justify-items: center;
+  text-decoration: none;
+}
+.imagen{
+  grid-area: "imagen"
+}
+.texto {
+  font-size: 13px;
+  grid-area: "texto"
 }
 
 .button:hover {

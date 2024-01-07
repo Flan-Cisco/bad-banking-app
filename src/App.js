@@ -1,42 +1,34 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { memo } from "react";
 
 import Home from "./pages/home.js";
-import Products from "./pages/products.js";
-import About from "./pages/about.js";
 import CreateAccount from "./pages/createAccount.js";
-import LogIn from "./pages/login.js";
+//import LogIn from "./pages/login.js";
+import LogOut from "./pages/logout.js";
+import AllData from "./pages/allData.js";
+import Bank from "./pages/bank.js";
 
 import Header from "./componentes/header.js";
-import UserContext from "./componentes/userContext";
+import { UserProvider } from "./componentes/userLogin.js";
 
 function App() {
   return (
     <Router>
       <Header />
       <div className="body">
-        <UserContext.Provider
-          value={{
-            users: [
-              {
-                name: "abel",
-                email: "abel@mit.edu",
-                password: "secret",
-                balance: 100,
-              },
-            ],
-          }}
-        >
+        <UserProvider>
           <Routes>
-            <Route path="" exact element={<Home />}></Route>
-            <Route path="about/" element={<Products />}></Route>
-            <Route path="products/" element={<About />}></Route>
-            <Route path="createAccount/" element={<CreateAccount />}></Route>
-            <Route path="logIn" element={<LogIn></LogIn>}></Route>
+            <Route path="/" exact element={<Home />}></Route>
+            <Route path="createAccount" element={<CreateAccount />}></Route>
+            {/* <Route path="logIn" element={<LogIn></LogIn>}></Route> */}
+            <Route path="allData" element={<AllData />}></Route>
+            <Route path="bank" element ={<Bank/>}></Route>
+            <Route path="logout" element={<LogOut />}></Route>
           </Routes>
-        </UserContext.Provider>
+        </UserProvider>
       </div>
     </Router>
   );
 }
-export default App;
+export default memo(App);
