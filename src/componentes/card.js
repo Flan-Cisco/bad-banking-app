@@ -19,7 +19,7 @@ function Card(props) {
     return "card mb-3 card" + bg + txt;
   }
   function handleClick() {
-    user ?? navigate("/createAccount");
+    user ? navigate("/bank") : navigate("/createAccount");
     
   }
   return (

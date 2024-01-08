@@ -5,6 +5,7 @@ import { useUser } from "../componentes/userLogin";
 
 function Home() {
   const { user } = useUser();
+
   return (
     <>
       {user ? (

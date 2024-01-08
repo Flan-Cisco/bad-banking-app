@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
+
 function Header() {
   const [activeTab, setActiveTab] = useState('tab1');
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    const currentTab = pathname.split("/")[1];
+    currentTab === "" ? setActiveTab("tab1") : setActiveTab(currentTab);
+  }, [pathname]);
 
   function handleTab(tab) {
     setActiveTab(tab);
@@ -26,7 +34,7 @@ function Header() {
         <p className="texto">Home</p>
       </Link>
 
-      <Link to="/bank/"  className={`button ${activeTab === 'tab2' ? 'active' : ''}`} onClick={() => handleTab('tab2')}>
+      <Link to="/bank/"  className={`button ${activeTab === 'bank' ? 'active' : ''}`} onClick={() => handleTab('bank')}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -41,7 +49,7 @@ function Header() {
         </svg>
         <p className="texto">Bank</p>
       </Link>
-      <Link to="/createAccount/"  className={`button ${activeTab === 'tab3' ? 'active' : ''}`} onClick={() => handleTab('tab3')}>
+      <Link to="/createAccount/"  className={`button ${activeTab === 'createAccount' ? 'active' : ''}`} onClick={() => handleTab('createAccount')}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -68,7 +76,7 @@ function Header() {
           <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
         </svg>
       </Link> */}
-      <Link to="/allData/"  className={`button ${activeTab === 'tab4' ? 'active' : ''}`} onClick={() => handleTab('tab4')}>
+      <Link to="/allData/"  className={`button ${activeTab === 'allData' ? 'active' : ''}`} onClick={() => handleTab('allData')}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

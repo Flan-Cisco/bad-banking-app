@@ -77,6 +77,7 @@ function BankForm(props) {
 
   function handleDepositWithdraw() {
     if (!validate(amount,props.label)) return;
+    alert("Transaction done successfully");
 
     props.handle({amount, header: props.label});
   }
@@ -172,12 +173,13 @@ function BankForm(props) {
                   value={amount}
                   onChange={(e) => setAmount(e.currentTarget.value)}
                 />
+                <br />
               </>
             )}
             <button
               type="submit"
               className="btn btn-light"
-              onClick={handleSubmit}
+              onClick={() => handleSubmit()}
             >
               {props.submitBtn}
             </button>
@@ -185,7 +187,7 @@ function BankForm(props) {
         ) : (
           <>
             <h5>Success</h5>
-            <button type="submit" className="btn btn-light" onClick={clearForm}>
+            <button type="submit" className="btn btn-light" onClick={() => clearForm()}>
               {props.successBtn}
             </button>
           </>
