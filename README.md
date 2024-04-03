@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Motivations
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was started with the porpuse of learning how to use ReactJS and play with the tools the framework offers, but now it's more that that it's a website that simulates the basic functionalities of a bank website, but without the level of security or the permanency of the data.
 
 ## Available Scripts
 
